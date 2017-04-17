@@ -79,7 +79,7 @@ module BotCommands =
         embed.Footer.Text <- "Barely Automated Normie Exterminator"
         embed.Footer.IconUrl <- ctx.Discord.Me.AvatarUrl
         embed.Timestamp <- dt
-        embed.Description <- sprintf "Your cryptographically-secure colour: [#%s](http://www.color-hex.com/color/%s)." cls cls
+        embed.Description <- sprintf "Your cryptographically-secure colour: [#%s](http://www.colorhexa.com/%s)." cls cls
         embed.Color <- cli
 
         ctx.Message.Respond("", false, embed) |> Async.AwaitTask |> Async.Ignore
