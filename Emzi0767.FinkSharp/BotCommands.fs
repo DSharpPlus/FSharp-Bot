@@ -16,7 +16,7 @@ type CommandAttribute(name: string) =
 module BotCommands =
 
     let async_to_task(work: Async<unit>) =
-        Task.Factory.StartNew(fun() -> work |> Async.RunSynchronously)
+        Task.Run(fun() -> work |> Async.RunSynchronously)
 
     let echo(ctx: CommandEventArgs) = 
         let embed = new DiscordEmbed()

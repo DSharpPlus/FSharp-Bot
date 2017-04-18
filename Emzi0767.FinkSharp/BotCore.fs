@@ -48,7 +48,12 @@ module BotCore =
     let timer_cbl (_: obj) =
         let proc = Process.GetCurrentProcess()
         discord.UpdateStatus(sprintf "Up for: %s" ((DateTime.UtcNow - proc.StartTime.ToUniversalTime()).ToString())) |> Async.AwaitTask |> Async.RunSynchronously
-    let timer = new Timer(timer_cbl, null, TimeSpan.FromSeconds(5.0), TimeSpan.FromMinutes(1.0))
+    let timer = new Timer(timer_cbl, null, Timeout.InfiniteTimeSpan, TimeSpan.FromMinutes(1.0))
+
+    let rdy_cbl() =
+        ignore(timer.Change(TimeSpan.Zero, TimeSpan.FromMinutes(1.0)))
+        Task.CompletedTask
+    discord.add_Ready(new AsyncEventHandler(rdy_cbl))
 
     for xm in load_cmds() do
         let attr = xm.GetCustomAttributes(false) |> Seq.find(fun xa -> xa.GetType() = typeof<CommandAttribute>) :?> CommandAttribute
