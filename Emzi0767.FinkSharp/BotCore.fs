@@ -21,6 +21,7 @@ module BotCore =
     dconf.TokenType <- TokenType.Bot
 
     let discord = new DiscordClient(dconf)
+    discord.SetSocketImplementation<WebSocketSharpClient>()
 
     let cconf = new CommandConfig()
     cconf.Prefix <- cfg.prefix

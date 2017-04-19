@@ -1,19 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Emzi0767.FinkSharp", "Emzi0767.FinkSharp\Emzi0767.FinkSharp.fsproj", "{E03998EB-B5D4-41B9-88E4-DC28021281CB}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DSP", "DSP", "{16EB6F7D-981A-4514-BF5A-A58AFE8EF220}"
-	ProjectSection(SolutionItems) = preProject
-		DSP\DSharpPlus.Commands.dll = DSP\DSharpPlus.Commands.dll
-		DSP\DSharpPlus.dll = DSP\DSharpPlus.dll
-		DSP\libopus.dll = DSP\libopus.dll
-		DSP\libsodium-64.dll = DSP\libsodium-64.dll
-		DSP\libsodium.dll = DSP\libsodium.dll
-		DSP\Newtonsoft.Json.dll = DSP\Newtonsoft.Json.dll
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77102A64-7319-48A2-86FC-D2E42467711D}"
 	ProjectSection(SolutionItems) = preProject
