@@ -65,13 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DSharpPlus">
-      <HintPath>..\packages\DSharpPlus.2.0.0-rc1\lib\net462\DSharpPlus.dll</HintPath>
+      <HintPath>..\packages\DSharpPlus.2.0.0-rc2\lib\net462\DSharpPlus.dll</HintPath>
     </Reference>
     <Reference Include="DSharpPlus.Commands">
-      <HintPath>..\packages\DSharpPlus.Commands.2.0.0-rc1\lib\net462\DSharpPlus.Commands.dll</HintPath>
+      <HintPath>..\packages\DSharpPlus.Commands.2.0.0-rc2\lib\net462\DSharpPlus.Commands.dll</HintPath>
     </Reference>
     <Reference Include="DSharpPlus.WebSocket.WebSocketSharp">
-      <HintPath>..\packages\DSharpPlus.WebSocket.WebSocketSharp.2.0.0-rc1\lib\net462\DSharpPlus.WebSocket.WebSocketSharp.dll</HintPath>
+      <HintPath>..\packages\DSharpPlus.WebSocket.WebSocketSharp.2.0.0-rc2\lib\net462\DSharpPlus.WebSocket.WebSocketSharp.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core">
