@@ -2,63 +2,62 @@
 
 open System
 open System.Diagnostics
-open System.Linq.Expressions
 open System.Threading
 open System.Threading.Tasks
 open DSharpPlus
-open DSharpPlus.Commands
+open DSharpPlus.CommandsNext
+open DSharpPlus.Entities
+open DSharpPlus.EventArgs
 open BotLoader
 
 module BotCore =
 
-    let cfg = load()
+    let cfg = load_config()
 
-    let dconf = new DiscordConfig()
-    dconf.AutoReconnect <- true
-    dconf.DiscordBranch <- Branch.Stable
-    dconf.LogLevel <- LogLevel.Unnecessary
-    dconf.Token <- cfg.token
-    dconf.TokenType <- TokenType.Bot
+    let dconf = new DiscordConfiguration()
+    dconf.set_AutoReconnect true
+    dconf.set_LogLevel LogLevel.Debug
+    dconf.set_Token cfg.token
+    dconf.set_TokenType TokenType.Bot
 
     let discord = new DiscordClient(dconf)
-    discord.SetSocketImplementation<WebSocketSharpClient>()
 
-    let cconf = new CommandConfig()
-    cconf.Prefix <- cfg.prefix
-    cconf.SelfBot <- false
+    let cconf = new CommandsNextConfiguration()
+    cconf.set_StringPrefix cfg.prefix
+    cconf.set_SelfBot false
 
-    let commands = discord.UseCommands(cconf)
+    let commands = discord.UseCommandsNext(cconf)
 
-    discord.DebugLogger.LogMessageReceived.AddHandler (fun (s: obj) (e: DebugLogMessageEventArgs) -> printfn "[%s] [%s] [%s] %s" (e.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")) (e.Level.ToString()) e.Application e.Message)
+    let log_received(s: obj) (e: DebugLogMessageEventArgs) =
+        printfn "[%s] [%s] [%s] %s" (e.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")) (e.Level.ToString()) e.Application e.Message
+
+    discord.DebugLogger.LogMessageReceived.AddHandler(EventHandler<DebugLogMessageEventArgs>(log_received))
 
     let cmde_cbl (e: CommandErrorEventArgs) =
-        let embed = new DiscordEmbed()
-        embed.Color <- 0xFF0000
-        embed.Author <- new DiscordEmbedAuthor()
+        let embed = new DiscordEmbedBuilder()
+        embed.Color <- new DiscordColor(0xFF0000)
+        embed.Author <- new DiscordEmbedBuilder.EmbedAuthor()
         embed.Author.Name <- "Error"
-        embed.Footer <- new DiscordEmbedFooter()
+        embed.Footer <- new DiscordEmbedBuilder.EmbedFooter()
         embed.Footer.Text <- "BANE"
-        embed.Footer.IconUrl <- discord.Me.AvatarUrl
-        embed.Timestamp <- DateTime.UtcNow
+        embed.Footer.IconUrl <- discord.CurrentUser.AvatarUrl
+        embed.Timestamp <- new Nullable<DateTimeOffset>(DateTimeOffset.UtcNow)
         embed.Description <- sprintf "```cs\n%s: %s\n```" (e.Exception.GetType().ToString()) e.Exception.Message
 
-        e.Channel.SendMessage("", false, embed) |> Async.AwaitTask |> Async.Ignore |> Async.RunSynchronously
-        Task.CompletedTask
-    commands.add_CommandError(new AsyncEventHandler<CommandErrorEventArgs>(cmde_cbl))
+        e.Context.Channel.SendMessageAsync("", false, embed.Build()) :> Task
+    
+    commands.add_CommandErrored(new AsyncEventHandler<CommandErrorEventArgs>(cmde_cbl))
 
     let timer_cbl (_: obj) =
         let proc = Process.GetCurrentProcess()
-        discord.UpdateStatus(sprintf "Up for: %s" ((DateTime.UtcNow - proc.StartTime.ToUniversalTime()).ToString())) |> Async.AwaitTask |> Async.RunSynchronously
+        discord.UpdateStatusAsync(new DiscordGame(sprintf "Up for: %s" ((DateTime.UtcNow - proc.StartTime.ToUniversalTime()).ToString()))) |> Async.AwaitTask |> Async.RunSynchronously
+
     let timer = new Timer(timer_cbl, null, Timeout.InfiniteTimeSpan, TimeSpan.FromMinutes(1.0))
 
-    let rdy_cbl() =
+    let rdy_cbl(ea: ReadyEventArgs) =
         ignore(timer.Change(TimeSpan.Zero, TimeSpan.FromMinutes(1.0)))
         Task.CompletedTask
-    discord.add_Ready(new AsyncEventHandler(rdy_cbl))
 
-    for xm in load_cmds() do
-        let attr = xm.GetCustomAttributes(false) |> Seq.find(fun xa -> xa.GetType() = typeof<CommandAttribute>) :?> CommandAttribute
-        let ea = Expression.Parameter(typeof<CommandEventArgs>, "e")
-        let ec = Expression.Call(xm.DeclaringType, xm.Name, null, [| ea :> Expression |])
-        let el = Expression.Lambda<Func<CommandEventArgs, Task>>(ec, ea)
-        ignore(commands.AddCommand(attr.Name, el.Compile()))
+    discord.add_Ready(new AsyncEventHandler<ReadyEventArgs>(rdy_cbl))
+
+    
