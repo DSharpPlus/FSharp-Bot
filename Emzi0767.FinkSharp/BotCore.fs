@@ -27,6 +27,7 @@ module BotCore =
     cconf.set_SelfBot false
 
     let commands = discord.UseCommandsNext(cconf)
+    commands.RegisterCommands<BotCommands>()
 
     let log_received(s: obj) (e: DebugLogMessageEventArgs) =
         printfn "[%s] [%s] [%s] %s" (e.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")) (e.Level.ToString()) e.Application e.Message

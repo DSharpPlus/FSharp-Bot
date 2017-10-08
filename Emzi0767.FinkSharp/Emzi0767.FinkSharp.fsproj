@@ -71,13 +71,13 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DSharpPlus">
-      <HintPath>..\packages\DSharpPlus.3.2.1\lib\net47\DSharpPlus.dll</HintPath>
+      <HintPath>..\packages\DSharpPlus.3.2.2-beta-00312\lib\net47\DSharpPlus.dll</HintPath>
     </Reference>
     <Reference Include="DSharpPlus.CommandsNext">
-      <HintPath>..\packages\DSharpPlus.CommandsNext.3.2.1\lib\net47\DSharpPlus.CommandsNext.dll</HintPath>
+      <HintPath>..\packages\DSharpPlus.CommandsNext.3.2.2-beta-00312\lib\net47\DSharpPlus.CommandsNext.dll</HintPath>
     </Reference>
     <Reference Include="DSharpPlus.Interactivity">
-      <HintPath>..\packages\DSharpPlus.Interactivity.3.2.1\lib\net47\DSharpPlus.Interactivity.dll</HintPath>
+      <HintPath>..\packages\DSharpPlus.Interactivity.3.2.2-beta-00312\lib\net47\DSharpPlus.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core">
@@ -91,28 +91,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.X509Certificates">
-      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
