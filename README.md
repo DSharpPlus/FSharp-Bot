@@ -4,7 +4,7 @@
 
 ## ABOUT
 
-A simple bot written in F#, on top of [DSharpPlus](https://github.com/NaamloosDT/DSharpPlus) library.
+A simple bot written in F#, on top of [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus) library.
 
 ## BUILDING
 
@@ -42,4 +42,4 @@ Should you still have any questions regarding the bot, feel free to join my serv
 
 ## REPORTING BUGS
 
-Bugs happen, no software is perfect. If you happen to cause the software to crash or otherwise behave in an unintended manner, make sure to let me know using via [the issue tracker](https://github.com/Emzi0767/Discord-ADA-Bot/issues). If possible, include the list of steps you took that caused the problem.
+Bugs happen, no software is perfect. If you happen to cause the software to crash or otherwise behave in an unintended manner, make sure to let me know using via [the issue tracker](https://github.com/DSharpPlus/FSharp-Bot/issues). If possible, include the list of steps you took that caused the problem.
